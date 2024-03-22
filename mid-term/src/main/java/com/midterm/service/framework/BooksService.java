@@ -1,19 +1,16 @@
 package com.midterm.service.framework;
 
 import java.util.List;
-import java.util.Optional;
-
-import com.midterm.entity.Books;
-
+import com.midterm.dto.BooksDto;
 
 public interface BooksService {
-    List<Books> getAllBooks();
+    List<BooksDto> getAllBooks();
 
-    Optional<Books> findById(Long id);
+    BooksDto findById(Long id);
 
-    Optional<Books> findByAuthor(String author);
+    BooksDto findByAuthor(String author);
 
-    Books save(Books std);
+    BooksDto save(BooksDto bookDto);
 
     void deleteById(Long id);
 }
