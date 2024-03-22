@@ -3,8 +3,8 @@ server:
 spring:
   datasource:
     url:  dbaas-db-2314928-do-user-15894374-0.c.db.ondigitalocean.com
-    username: {user_name}
-    password: {user_password}
+    username: doadmin
+    password: AVNS_jPgLnqbCer1uY6IAEhY
   jpa:
     hibernate:
       ddl-auto: update

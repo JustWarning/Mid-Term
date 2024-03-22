@@ -1,0 +1,23 @@
+[33mcommit 2458211dfa1a9ef4379a443b596d4758094e27ad[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: JustWarning <ridze00@gmail.com>
+Date:   Fri Mar 22 18:17:11 2024 +0600
+
+    connected db postgres
+
+[33mcommit 97fc9a7bc62f1220ec1f3081de7c25d942e5678d[m
+Author: JustWarning <ridze00@gmail.com>
+Date:   Fri Mar 22 18:14:25 2024 +0600
+
+    connected db postgres
+
+[33mcommit 5e6522bc5d650f7f6d111b4ec437f475406cb5b5[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: JustWarning <164486400+JustWarning@users.noreply.github.com>
+Date:   Fri Mar 22 15:07:51 2024 +0500
+
+    Create README.md
+
+[33mcommit 7ae18cf8d5acd478b6f2bbd54c6f5fb1e4c3be68[m
+Author: Ridzen <ridze00@gmail.com>
+Date:   Fri Mar 22 15:55:20 2024 +0600
+
+    initial commit
