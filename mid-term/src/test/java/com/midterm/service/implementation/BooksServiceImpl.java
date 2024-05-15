@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 import java.util.List;
+import java.util.Arrays;
+
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.ArgumentMatchers.any;
@@ -18,7 +20,7 @@ import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
-public class BooksServiceImplTest {
+class BooksServiceImplTest {
 
     @Mock
     private BooksRepository booksRepository;
@@ -44,7 +46,7 @@ public class BooksServiceImplTest {
 
     @Test
     void whenGetAllBooks_thenReturnBooksList() {
-        when(booksRepository.findAll()).thenReturn(List.of(book));
+        when(booksRepository.findAll()).thenReturn(Arrays.asList(book));
 
         List<BooksDto> result = booksService.getAllBooks();
 
