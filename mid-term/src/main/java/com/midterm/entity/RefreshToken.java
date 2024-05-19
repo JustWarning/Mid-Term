@@ -20,7 +20,6 @@ public class RefreshToken {
     @Column(nullable = false)
     private Instant expiryDate;
 
-    // Getters and Setters
 
     public Long getId() {
         return id;

@@ -38,6 +38,8 @@ public class User implements UserDetails {
             @JoinColumn(name = "role_id")})
     private Set<Role> roles;
 
+    private boolean enabled = false;
+
     public User() {
     }
 
