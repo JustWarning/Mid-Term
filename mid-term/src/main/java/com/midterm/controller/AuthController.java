@@ -6,7 +6,9 @@ import com.midterm.security.MessageResponse;
 import com.midterm.security.SignupRequest;
 import com.midterm.security.jwt.JwtUtils;
 import com.midterm.entity.User;
+import com.midterm.entity.RefreshToken;
 import com.midterm.service.framework.UserService;
+import com.midterm.service.implementation.RefreshTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,6 +34,9 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+    @Autowired
+    RefreshTokenService refreshTokenService;
+
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
 
@@ -40,8 +45,10 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
+        User userDetails = (User) authentication.getPrincipal();
+        RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails);
 
-        return ResponseEntity.ok(new JwtResponse(jwt));
+        return ResponseEntity.ok(new JwtResponse(jwt, refreshToken.getToken()));
     }
 
     @PostMapping("/signup")
@@ -49,13 +56,13 @@ public class AuthController {
         if (userService.existsByUsername(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Ошибка: Данный пользователь уже существует!"));
+                    .body(new MessageResponse("Error: Username is already taken!"));
         }
 
         if (userService.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Ошибка: Данная почта уже занята!"));
+                    .body(new MessageResponse("Error: Email is already in use!"));
         }
 
         User user = new User(signUpRequest.getFirstName(), signUpRequest.getLastName(),
@@ -63,6 +70,6 @@ public class AuthController {
 
         userService.save(user);
 
-        return ResponseEntity.ok(new MessageResponse("Пользователь успешно зарегистрирован!"));
+        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 }

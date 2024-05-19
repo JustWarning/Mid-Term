@@ -10,7 +10,7 @@ import java.util.Date;
 @Component
 public class JwtUtils {
     private final String jwtSecret = "secretKey";
-    private final int jwtExpirationMs = 86400000;
+    private final int jwtExpirationMs = 86400000; // Типо 1 день
 
     public String generateJwtToken(Authentication authentication) {
         User userPrincipal = (User) authentication.getPrincipal();
