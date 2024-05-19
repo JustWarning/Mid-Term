@@ -1,5 +1,6 @@
 package com.midterm.security.jwt;
 
+import com.midterm.entity.User;
 import com.midterm.service.implementation.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
 public class AuthTokenFilter extends OncePerRequestFilter {
 
     @Autowired
@@ -29,14 +29,14 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+    protected void doFilterInternal(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response, jakarta.servlet.FilterChain filterChain)
+            throws jakarta.servlet.ServletException, IOException {
         try {
-            String jwt = parseJwt(request);
+            String jwt = parseJwt((HttpServletRequest) request);
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-                String username = jwtUtils.getUserNameFromJwtToken(jwt);
+                String email = jwtUtils.getUserNameFromJwtToken(jwt);
 
-                UserDetails userDetails = userService.loadUserByUsername(username);
+                UserDetails userDetails = userService.loadUserByUsername(email);
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(
                                 userDetails,
@@ -47,11 +47,10 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {
-            logger.error("Cannot set user authentication: s% ", e);
+            logger.error("Cannot set user authentication: {}", e.getMessage());
         }
 
         filterChain.doFilter(request, response);
-
     }
 
     private String parseJwt(HttpServletRequest request) {
@@ -64,4 +63,3 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         return null;
     }
 }
-
