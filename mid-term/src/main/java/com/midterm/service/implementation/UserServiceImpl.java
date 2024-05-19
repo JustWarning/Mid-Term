@@ -10,7 +10,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 
 import java.util.List;
@@ -70,6 +69,21 @@ public class UserServiceImpl implements UserService {
          }
         User updatedUser = userRepository.save(user);
         return modelMapper.map(updatedUser, UserDto.class);
+    }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    @Override
+    public void save(User user) {
+        userRepository.save(user);
     }
 
     @Override

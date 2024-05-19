@@ -4,6 +4,7 @@ import io.jsonwebtoken.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import com.midterm.entity.User;
+
 import java.util.Date;
 
 @Component

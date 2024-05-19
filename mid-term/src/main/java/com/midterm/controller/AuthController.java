@@ -1,8 +1,11 @@
 package com.midterm.controller;
 
-import com.midterm.security.jwt.JwtUtils;
-import com.midterm.security.LoginRequest;
 import com.midterm.security.JwtResponse;
+import com.midterm.security.LoginRequest;
+import com.midterm.security.MessageResponse;
+import com.midterm.security.SignupRequest;
+import com.midterm.security.jwt.JwtUtils;
+import com.midterm.entity.User;
 import com.midterm.service.framework.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -43,24 +46,23 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
-        if (userService.existsByUsername(signUpRequest.getUsername())) {
+        if (userService.existsByUsername(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
+                    .body(new MessageResponse("Ошибка: Данный пользователь уже существует!"));
         }
 
         if (userService.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Email is already in use!"));
+                    .body(new MessageResponse("Ошибка: Данная почта уже занята!"));
         }
 
-        User user = new User(signUpRequest.getUsername(),
-                signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()));
+        User user = new User(signUpRequest.getFirstName(), signUpRequest.getLastName(),
+                signUpRequest.getEmail(), encoder.encode(signUpRequest.getPassword()));
 
         userService.save(user);
 
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        return ResponseEntity.ok(new MessageResponse("Пользователь успешно зарегистрирован!"));
     }
 }

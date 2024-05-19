@@ -19,19 +19,34 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     @NotEmpty(message = "{FIRST_NAME_REQUIRED}")
     private String firstName;
+
     @NotEmpty(message = "{LAST_NAME_REQUIRED}")
     private String lastName;
+
     @Email
     @NotEmpty(message = "{EMAIL_REQUIRED}")
     private String email;
+
     @NotEmpty(message = "{PASSWORD_REQUIRED}")
     private String password;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {
             @JoinColumn(name = "role_id")})
     private Set<Role> roles;
+
+    public User() {
+    }
+
+    public User(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -65,4 +80,3 @@ public class User implements UserDetails {
         return true;
     }
 }
-

@@ -1,35 +1,30 @@
 package com.midterm.security;
 
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class SignupRequest {
-    private String username;
+    private String firstName;
+    private String lastName;
     private String email;
     private String password;
 
-    // Getters and setters
 
-    public String getUsername() {
-        return username;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
 }
-
